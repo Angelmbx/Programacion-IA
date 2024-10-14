@@ -1,0 +1,11 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<aiml version="2">
+   <category>
+      <pattern> HOLA ALICE </pattern>
+      <template>
+         Hola usuario
+      </template>
+   </category>
+</aiml> 
+
+<!-- Para ejecutar: java -cp lib/Ab.jar Main bot=mirabot action=chat trace=false -->
