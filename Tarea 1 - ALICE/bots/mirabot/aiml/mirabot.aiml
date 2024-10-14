@@ -1,11 +1,40 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
-<aiml version="2">
-   <category>
+<aiml>
+    <category>
       <pattern> HOLA ALICE </pattern>
       <template>
-         Hola usuario
+        <random>
+            <li> Hola usuario </li>
+            <li> Que pasa pimpollo </li>
+            <li> Saludo genérico 3 </li>
+        </random>
       </template>
-   </category>
+    </category>
+
+    <category>
+      <pattern>Me llamo * y tengo * años</pattern>
+      <template>
+         Hola <star/>. <star index="2"/>? Estás en la mejor edad!
+      </template>
+    </category>
+
+    <category>
+      <pattern>Quien es Leticia</pattern>
+      <template>Leticia es la hermana de Angel</template>
+    </category>
+    <category>
+      <pattern> Quien es James Harden</pattern>
+      <template>James Harden es un jugador de la NBA</template>
+    </category>
+
+
+    <category>
+      <pattern>Sabes quien es *</pattern> <!-- que funcion tiene esto? -->
+      <template>
+        <srai>Quien es <star/></srai>
+      </template>
+    </category>
+
 </aiml> 
 
 <!-- Para ejecutar: java -cp lib/Ab.jar Main bot=mirabot action=chat trace=false -->
