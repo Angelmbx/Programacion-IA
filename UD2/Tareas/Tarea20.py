@@ -4,13 +4,13 @@
 if __name__ == '__main__':
     numero = int(input('Introduza un numero: '))
     index = 1
-    sumatorio = 1
+    sumatorio = 0
 
-    while index <= numero:
-        sumatorio = index + (index + 1)
-        index += 1 
-    
+    for index in range(1, numero+1):
+        sumatorio += index
+
     print(sumatorio)
+
 
 
 
