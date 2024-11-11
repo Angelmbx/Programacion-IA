@@ -9,7 +9,7 @@ if __name__ == "__main__":
     
     for materia in materias: 
          nota = float(input(f'Que nota tes en {materia}?: ')) 
-         if nota >5:
+         if nota >= 5:
              suspensas.remove(materia)
              
 
