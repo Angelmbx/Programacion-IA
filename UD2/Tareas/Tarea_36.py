@@ -3,15 +3,13 @@
 
 if __name__ == "__main__":
 
-    divisas = {'Euro':'€', 'Dollar':'$', 'Yen':'¥'}
+    divisas = {'euro':'€', 'dollar':'$', 'yen':'¥'}
 
-    entrada_usuario = input('De que divisa quieres obtener su símbolo?: ')
+    entrada_usuario = input('De que divisa quieres obtener su símbolo?: ').lower()
 
-
-    for divisa, simbolo in divisas.items():
-        if entrada_usuario.lower() == divisa.lower():
-            print(simbolo)
-            break
-        else:
-            print('Esa divisa non está disponible ou existe algún error tipográfico.')
-            break
+    simbolo = divisas.get(entrada_usuario)
+    
+    if simbolo:
+        print(f'O símbolo de {entrada_usuario} é {simbolo}.')
+    else:
+        print(f'A divisa "{entrada_usuario}" non se atopa no rexistro.')
