@@ -4,10 +4,21 @@
 # polo usuario. ##
 
 if __name__ == "__main__":
-
-    materias = {'Matemáticas': 7.8, 'Historia': 6.0, 'Economía': 3.75, 'Física': 9.0}
-
-    for nota in materias.keys(): 
-        print("{} => {}".format(nota, materias[nota])) 
+    materias = ['Matemáticas', 'Historia', 'Economía', 'Física']
+    resultados = dict.fromkeys(materias) # creo un diccionario cuyas claves serán los elementos de 'materias', aunque sin valores aún
     
+    for materia in materias: 
+         nota = input(f'Que nota tes en {materia}?: ') 
+         resultados[materia] = nota
+
+
+    print('--------')
+    print('NOTAS')
+    print('--------')
+    
+    for materia, nota in resultados.items(): 
+        print(f'En {materia} tienes un {nota}')
+
+
+
     
