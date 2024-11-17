@@ -5,7 +5,7 @@
 if __name__ == "__main__":      
 
     factura_sen_ive = float(input('Introduza o importe da súa factura sen IVE: '))
-    tipo_ive = input('Indique a porcentaxe de IVE a aplicar (4, 10 ou deixar baleiro para o xeral 21%): ')
+    tipo_ive = input('Indique a porcentaxe de IVE a aplicar (4, 10 ou deixar baleiro para aplicar o ive xeral 21%): ')
 
     if tipo_ive == "":
         tipo_ive = 21
