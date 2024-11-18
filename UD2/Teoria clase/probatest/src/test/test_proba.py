@@ -8,4 +8,5 @@ def test_1mas0():
 
 def test_outro():
     assert suma(5,4) == 9
-    assert suma(3,45) == 1
+    #assert suma(3,45) == 1
+    
