@@ -23,13 +23,43 @@ def aplicacion_4_ive(produto_sen_ive):
 def desconto(prezo):
     return prezo * 0.1
 
+def total(cesta):
+        prezo_final = 0
+        ive_total = 0
+        desconto_total = 0
+
+        for artigo in cesta:
+            prezo_sen_ive = artigo["prezo sen ive"]
+            prezo_ive = artigo["tipo ive"]
+            if artigo["desconto"] == None:
+                desconto_aplicado = 0
+            else:
+                desconto_aplicado = artigo["desconto"] 
+
+            prezo_final += prezo_ive - desconto_aplicado
+            ive_total += prezo_ive - prezo_sen_ive
+            desconto_total += desconto_aplicado
+
+        return {
+        "total_a_pagar": round(prezo_final, 2),
+        "total_ive": round(ive_total, 2),
+        "total_descontos": round(desconto_total, 2)
+     }
+
 if __name__ == "__main__":
     
     lista_compra = [
         {"produto": "mazás", "prezo sen ive": 1.15, "tipo ive": aplicacion_21_ive(1.15), "desconto": None},
         {"produto": "queixo", "prezo sen ive": 2.88, "tipo ive": aplicacion_21_ive(2.88), "desconto": desconto(aplicacion_21_ive(2.88))},
-        {"produto": "tomates", "prezo sen ive": 1.40,"tipo ive": aplicacion_4_ive(1.40), "desconto": None}
+        {"produto": "tomates", "prezo sen ive": 1.40,"tipo ive": aplicacion_4_ive(1.40), "desconto": None},
+        {"produto": "Pack de leite", "prezo sen ive": 5.60,"tipo ive": aplicacion_21_ive(5.60), "desconto": desconto(aplicacion_21_ive(5.60))}
     ]
 
-    def total(cesta):
-        return 
+    resultados = dict()
+
+    resultados = total(lista_compra)
+
+    print(f"Total a pagar: {resultados['total_a_pagar']}€")
+    print(f"Total IVE: {resultados['total_ive']}€")
+    print(f"Total Descontos: {resultados['total_descontos']}€")
+
