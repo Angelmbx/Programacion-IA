@@ -14,16 +14,22 @@
 
 
 
-def aplicacion_21_ive(producto_sen_ive):
-    return producto_sen_ive * 1.21
+def aplicacion_21_ive(produto_sen_ive):
+    return produto_sen_ive * 1.21
 
-def aplicacion_10_ive(producto_sen_ive):
-    return producto_sen_ive * 1.10
+def aplicacion_4_ive(produto_sen_ive):
+    return produto_sen_ive * 1.04
 
-def aplicacion_4_ive(producto_sen_ive):
-    return producto_sen_ive * 1.04
-
-
+def desconto(prezo):
+    return prezo * 0.1
 
 if __name__ == "__main__":
-    main()
+    
+    lista_compra = [
+        {"produto": "mazás", "prezo sen ive": 1.15, "tipo ive": aplicacion_21_ive(1.15), "desconto": None},
+        {"produto": "queixo", "prezo sen ive": 2.88, "tipo ive": aplicacion_21_ive(2.88), "desconto": desconto(aplicacion_21_ive(2.88))},
+        {"produto": "tomates", "prezo sen ive": 1.40,"tipo ive": aplicacion_4_ive(1.40), "desconto": None}
+    ]
+
+    def total(cesta):
+        return 
