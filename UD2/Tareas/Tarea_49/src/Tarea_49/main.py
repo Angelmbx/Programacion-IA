@@ -12,10 +12,11 @@ def lunh_method(numero):
 
         for index in range(0, len(numero)):
             if not index % 2 == 0 :
-                pares.append(numero[index])
-            
+                pares.append(int(numero[index]))
 
-        return(pares)
+        suma = sum(pares)
+
+        return(suma)
 
 
 if __name__ == "__main__":
