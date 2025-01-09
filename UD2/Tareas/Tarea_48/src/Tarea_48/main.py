@@ -8,3 +8,18 @@
 # - Implementa agora o proceso de xogo:
 #     - Primeiro un xogador, comproba se hai gañador, logo outro.
 #     - Paras cando un gaña ou xa non hai máis movementos.
+
+def tablero ():
+    fila = []
+
+    for index in range(0,3):
+        fila.append("\n")
+        for a in range(0,3):
+            fila.append("|_|")
+
+    return fila  
+
+
+if __name__ == '__main__':
+
+    print(tablero())
