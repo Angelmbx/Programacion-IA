@@ -9,7 +9,6 @@ def test_algoritmo_luhn():
     assert algoritmo_luhn("6011514433546201") == True
     
     # Tarjeta inválida
-    assert algoritmo_luhn("1234567812345670") == False
     assert algoritmo_luhn("1234567812345678") == False
 
 
