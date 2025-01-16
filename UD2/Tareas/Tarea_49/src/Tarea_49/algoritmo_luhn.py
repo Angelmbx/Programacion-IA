@@ -1,4 +1,4 @@
-from errores import error_numero_caracteres, error_algoritmo_luhn, error_de_formato
+from Tarea_49.errores import error_numero_caracteres, error_algoritmo_luhn, error_de_formato
 
 def algoritmo_luhn(numero):
 

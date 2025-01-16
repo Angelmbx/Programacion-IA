@@ -2,8 +2,8 @@
 #  O número de tarxeta segue a formula de Luhn. Os usuarios poden ter establecido o número de tarxeta ou non, en todo caso, 
 #  se o teñen ten que seguir a formula. Pensa primeiramente que relación existe entre os usuarios e os números de Lunh, e logo implementa. ##
 
-from errores import error_de_formato, error_numero_caracteres, error_algoritmo_luhn
-from usuario import Usuario
+from Tarea_49.errores import error_de_formato, error_numero_caracteres, error_algoritmo_luhn
+from Tarea_49.usuario import Usuario
 
 
 if __name__ == "__main__":

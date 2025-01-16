@@ -1,5 +1,5 @@
-from errores import error_algoritmo_luhn, error_de_formato, error_numero_caracteres
-from algoritmo_luhn import algoritmo_luhn
+from Tarea_49.errores import error_algoritmo_luhn, error_de_formato, error_numero_caracteres
+from Tarea_49.algoritmo_luhn import algoritmo_luhn
 
 
 class Usuario:
