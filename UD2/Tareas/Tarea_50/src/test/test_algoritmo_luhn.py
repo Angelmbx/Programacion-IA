@@ -1,34 +1,44 @@
 import pytest
 from Tarea_50.usuario import Usuario
-from Tarea_50.algoritmo_luhn import algoritmo_luhn
-from Tarea_50.errores import error_de_formato, error_numero_caracteres, error_algoritmo_luhn 
+from Tarea_50.errores import error_algoritmo_luhn
 
-def test_algoritmo_luhn():
-    # Tarjeta valida
-    assert algoritmo_luhn("4539319503436467") == True
-    assert algoritmo_luhn("6011514433546201") == True
-    
-    # Tarjeta inválida
-    assert algoritmo_luhn("1234567812345678") == False
-
-
-def test_usuario_creacion_valida():
-    
+# Crear un usuario con tarjeta válida
+def test_crear_usuario_tarjeta_valida():
     usuario = Usuario(nombre="Paco", username="magic_paco", password="123.", tarjeta="4539319503436467")
     assert usuario.nombre == "Paco"
     assert usuario.username == "magic_paco"
     assert usuario.password == "123."
-    assert usuario.tarjeta == "4539319503436467"  
+    assert usuario.tarjeta == "4539319503436467"
 
-def test_usuario_tarjeta_invalida():
-    with pytest.raises(error_algoritmo_luhn):
-        Usuario(nombre="Paco", username="magic_paco", password="123.", tarjeta="1234567812345678")
+# Test: Crear un usuario sin tarjeta
+def test_crear_usuario_sin_tarjeta():
+    usuario = Usuario(nombre="Maria", username="maria123", password="abc123")
+    assert usuario.nombre == "Maria"
+    assert usuario.username == "maria123"
+    assert usuario.password == "abc123"
+    assert usuario.tarjeta is None
 
-def test_usuario_formato_tarjeta_invalido():
-    with pytest.raises(error_de_formato):
-        Usuario(nombre="Paco", username="magic_paco", password="123.", tarjeta="Tarjeta58")
+# Crear un usuario con tarjeta inválida
+def test_crear_usuario_tarjeta_invalida():
+    with pytest.raises(error_algoritmo_luhn) as excinfo:
+        Usuario(nombre="Juan", username="juanito", password="password", tarjeta="1234567890123456")
+    assert "1234567890123456" in str(excinfo.value)
 
-def test_usuario_caracteres_insuficientes():
-    # Caso donde el número de caracteres de la tarjeta es insuficiente
-    with pytest.raises(error_numero_caracteres):
-        Usuario(nombre="Paco", username="magic_paco", password="123.", tarjeta="3")
+# Cambiar a un numero de tarjeta válido
+def test_cambiar_tarjeta_valida():
+    usuario = Usuario(nombre="Carlos", username="carlos123", password="pass123", tarjeta="6011 5144 3354 6201")
+    usuario.tarjeta = "4539 3195 0343 6467"  
+    assert usuario.tarjeta == "4539 3195 0343 6467" # Acepta el nuevo numero, por lo que cambia
+
+# Cambiar a un numero de tarjeta inválido
+def test_cambiar_tarjeta_invalida():
+    usuario = Usuario(nombre="Ana", username="ana456", password="123abc", tarjeta="4539319503436467")
+    with pytest.raises(error_algoritmo_luhn) as excinfo:
+        usuario.tarjeta = "1234567890123456"  
+    assert usuario.tarjeta == "4539319503436467"  # El nuevo numero no es valido, por lo que no cambia
+    assert "1234567890123456" in str(excinfo.value)
+
+def test_cambiar_tarjeta_a_none():
+    usuario = Usuario(nombre="Laura", username="laura789", password="pass456", tarjeta="4539319503436467")
+    usuario.tarjeta = None  # Tarjeta eliminada
+    assert usuario.tarjeta is None
