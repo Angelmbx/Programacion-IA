@@ -1,6 +1,9 @@
-## No sistema temos presente usuarios. Cada un deles ten un nome, un nome de usuario, un contrasinal e un número de tarxeta.
-#  O número de tarxeta segue a formula de Luhn. Os usuarios poden ter establecido o número de tarxeta ou non, en todo caso, 
-#  se o teñen ten que seguir a formula. Pensa primeiramente que relación existe entre os usuarios e os números de Lunh, e logo implementa. ##
+## Esta tarefa é igual que a anterior, cunhas pequenas modificacións, polo que se pode partir do feito nela.
+# Co feito ata o de agora, cando se crea unha instancia se valida o número co algoritmo de Lunh. Pero que pasa despois? 
+# O numero de tarxeta pode ser cambiado e non se valida para nada.
+# Usa properties para modificar isto, de tal xeito que o número de tarxeta sexa validado cando se lle intente cambiar o valor. 
+## Se o número non e correcto, o usuario debe manter o código de tarxeta anterior e se debe lanzar unha excepción.
+
 
 from Tarea_50.errores import error_de_formato, error_numero_caracteres, error_algoritmo_luhn
 from Tarea_50.usuario import Usuario
