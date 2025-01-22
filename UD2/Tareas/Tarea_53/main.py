@@ -7,15 +7,15 @@
 # A puntuación máis alta obxectivo é chegar 21. Se a man ten mais de 21 puntos se perde.
 # Cada xogador ten unha man e se elixe ao gañador (se o hai) como o que ten a puntuación maior (sen pasarse do límite)
 
-from src import jugador
+from src.jugador import Jugador
 from src.blackjack import iniciar_partida
 
 
 if __name__ == "__main__" :
     
-    jugador_1 = jugador.Jugador("Robert")
-    jugador_2 = jugador.Jugador("Vanesa")
-    banca = jugador.Jugador("Banca")
+    jugador_1 = Jugador("Robert")
+    jugador_2 = Jugador("Vanesa")
+    banca = Jugador("Banca")
     
     
     print(f"{jugador_1.nombre}, puntuación: {jugador_1.mano.puntuacion}")

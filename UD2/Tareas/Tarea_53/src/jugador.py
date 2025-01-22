@@ -1,8 +1,9 @@
-from src import mano
+from src.mano import Mano
 
 class Jugador:
     def __init__ (self, nombre):
         self.nombre = nombre
-        self.mano = mano.Mano()
-        
+        self.mano = Mano()
+
+
     
