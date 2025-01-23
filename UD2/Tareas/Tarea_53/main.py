@@ -8,7 +8,7 @@
 # Cada xogador ten unha man e se elixe ao gañador (se o hai) como o que ten a puntuación maior (sen pasarse do límite)
 
 from src.jugador import Jugador
-from src.blackjack import iniciar_partida, seleccionar_participantes
+from src.blackjack import comprobar_ganadores
 
 
 if __name__ == "__main__" :
@@ -26,4 +26,5 @@ if __name__ == "__main__" :
     # print(f"{banca.nombre}, puntuación: {banca.mano.puntuacion}")
     # print(f"Ganador: {iniciar_partida(jugador_1, jugador_2, banca)}")
     
-    iniciar_partida()
+    #iniciar_partida()
+    comprobar_ganadores()

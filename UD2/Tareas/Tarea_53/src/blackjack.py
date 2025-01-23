@@ -34,17 +34,26 @@ def iniciar_partida():
     if validos:
         jugadores_eliminados = []  # Lista para registrar jugadores eliminados
         
-        for jugador, puntuacion in validos:
+        for jugador in validos:
+            puntuacion = jugador.mano.puntacion
             print(f"Turno de {jugador.nombre} - Puntuación inicial {puntuacion}: ")
+    
             jugando = True
             
+            if puntuacion == puntuacion_obj:
+                print(f"{jugador.nombre} ha alcanzado la puntuación límite con {jugador.mano.puntuacion} puntos!.")
+                jugando = False
+
             while jugando:
                 pedir = input("¿Quieres pedir otra carta? (1 para sí / 0 para no): ").lower().strip()
                 if pedir == "1":
                     jugador.mano.añadir_carta()
                     print(f"Nueva puntuación {jugador.mano.puntuacion}")
                     
-                    if jugador.mano.puntuacion > puntuacion_obj:
+                    if jugador.mano.puntuacion == puntuacion_obj:
+                        print(f"{jugador.nombre} ha alcanzado la puntuación límite con {jugador.mano.puntuacion} puntos!.")
+                        break
+                    elif jugador.mano.puntuacion > puntuacion_obj:
                         print(f"{jugador.nombre} ha superado la puntuación límite con {jugador.mano.puntuacion}.")
                         jugadores_eliminados.append((jugador, jugador.mano.puntuacion))
                         break
@@ -62,6 +71,19 @@ def iniciar_partida():
 
     return validos
 
+
+
+def comprobar_ganadores():
+
+
+    puntuaciones_finales = iniciar_partida()
+    #print(puntuaciones_finales)
+
+    for elemento in puntuaciones_finales:
+        jugador = elemento[0]
+        puntuacion = elemento[1]
+        print(jugador.nombre, puntuacion)
+        
 
 
     # if validos:
