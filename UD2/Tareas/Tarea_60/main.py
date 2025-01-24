@@ -15,27 +15,34 @@ print(c)
 print("Ejercicio 2 ")
 a = np.array([2, 6, 1, 9, 10, 3, 27])
 
-new_arr = np.array([elemento for elemento in a if elemento < 10 and elemento > 5])
+new_arr = np.array([elemento for elemento in a if elemento <= 10 and elemento >= 5])
 print(new_arr)
 
 # 3. Sexa a función maxx definida como:
-# print("Ejercicio 3")
+print("Ejercicio 3")
 
-# def maxx(x, y):
-#     """Get the maximum of two items"""
-#     if x >= y:
-#         return x
-#     else:
-#         return y
+def maxx(x, y):
+    """Get the maximum of two items"""
+    if x >= y:
+        return x
+    else:
+        return y
     
 # # Fai que se aplique de xeito vectorial de tal xeito que se o aplicamos aos array a e b obteñamos o seguinte resultado.
-# a = np.array([5, 7, 9, 8, 6, 4, 5])
-# b = np.array([6, 3, 4, 8, 9, 7, 1])
-# print(maxx(a, b))
-# #> array([ 6.,  7.,  9.,  8.,  9.,  7.,  5.])
+a = np.array([5, 7, 9, 8, 6, 4, 5])
+b = np.array([6, 3, 4, 8, 9, 7, 1])
 
 
+# frompyfunc recive a función a vectorizar, definida antes
+# o seguinte parámetro indica o numero de parámetros de entrada que ten funcion_base
+# o último é a cantidade de saidas
+max_array = np.frompyfunc(maxx, 2, 1)
 
+# max_array colle dúas entradas que son dous arrays
+# itera sobre cada un dos elementos individuais e elixe o máximo para cada posición dos dous arrays
+# o resultado se garda nun novo array
+print(max_array(a, b))
+# #> array([ 6,  7,  9,  8,  9,  7,  5])
 
 
 # 4. Lee mediante pandas o ficheiro iris.data. Obten a columna sepallength como un array numpy. 
@@ -49,11 +56,11 @@ from sklearn import datasets
 from sklearn.preprocessing import MinMaxScaler
 
 iris_data = datasets.load_iris()
-iris_data
 iris = pd.DataFrame(iris_data.data,columns=iris_data.feature_names)
-datos = np.array([iris['sepal length (cm)']]) 
+datos = iris[['sepal length (cm)']].to_numpy()
 
-scaler = MinMaxScaler()
+
+scaler = MinMaxScaler() # con este escalado escala los datos con valores entre 0 y 1
 datos_normalizados = scaler.fit_transform(datos)
 
-print(datos_normalizados)
+print(datos_normalizados[:10])
