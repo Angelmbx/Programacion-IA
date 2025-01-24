@@ -52,12 +52,14 @@ print(max_array(a, b))
 print("Ejercicio 4")
 
 import pandas as pd
-from sklearn import datasets
 from sklearn.preprocessing import MinMaxScaler
 
-iris_data = datasets.load_iris()
-iris = pd.DataFrame(iris_data.data,columns=iris_data.feature_names)
-datos = iris[['sepal length (cm)']].to_numpy()
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
+column_names = ["sepal length", "sepal width", "petal length", "petal width", "class"]
+
+iris = pd.read_csv(url, header=None, names= column_names)
+
+datos = iris[['sepal length']].to_numpy()
 
 
 scaler = MinMaxScaler() # con este escalado escala los datos con valores entre 0 y 1
