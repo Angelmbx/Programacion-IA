@@ -19,21 +19,41 @@ new_arr = np.array([elemento for elemento in a if elemento < 10 and elemento > 5
 print(new_arr)
 
 # 3. Sexa a función maxx definida como:
+# print("Ejercicio 3")
+
 # def maxx(x, y):
 #     """Get the maximum of two items"""
 #     if x >= y:
 #         return x
 #     else:
 #         return y
-# Fai que se aplique de xeito vectorial de tal xeito que se o aplicamos aos array a e b obteñamos o seguinte resultado.
+    
+# # Fai que se aplique de xeito vectorial de tal xeito que se o aplicamos aos array a e b obteñamos o seguinte resultado.
 # a = np.array([5, 7, 9, 8, 6, 4, 5])
 # b = np.array([6, 3, 4, 8, 9, 7, 1])
-# pair_max(a, b)
+# print(maxx(a, b))
 # #> array([ 6.,  7.,  9.,  8.,  9.,  7.,  5.])
-print("Ejercicio 3")
 
 
 
-# 4. Lee mediante pandas o ficheiro iris.data. Obten a columna sepallength como un array numpy. Normaliza os datos: os novos valores terán un valor minimo de 0 e maximo de 1.
+
+
+# 4. Lee mediante pandas o ficheiro iris.data. Obten a columna sepallength como un array numpy. 
+# Normaliza os datos: os novos valores terán un valor minimo de 0 e maximo de 1.
 # Podes descargar os ficheiros de datos de aquí: https://archive.ics.uci.edu/dataset/53/iris
 # Nesa url tes tanto o ficheiro de datos como a súa descrición.
+print("Ejercicio 4")
+
+import pandas as pd
+from sklearn import datasets
+from sklearn.preprocessing import MinMaxScaler
+
+iris_data = datasets.load_iris()
+iris_data
+iris = pd.DataFrame(iris_data.data,columns=iris_data.feature_names)
+datos = np.array([iris['sepal length (cm)']]) 
+
+scaler = MinMaxScaler()
+datos_normalizados = scaler.fit_transform(datos)
+
+print(datos_normalizados)
