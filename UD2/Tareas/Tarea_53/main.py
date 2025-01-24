@@ -7,24 +7,9 @@
 # A puntuación máis alta obxectivo é chegar 21. Se a man ten mais de 21 puntos se perde.
 # Cada xogador ten unha man e se elixe ao gañador (se o hai) como o que ten a puntuación maior (sen pasarse do límite)
 
-from src.jugador import Jugador
 from src.blackjack import comprobar_ganadores
 
 
 if __name__ == "__main__" :
     
-    # jugador_1 = Jugador("Robert")
-    # jugador_2 = Jugador("Vanesa")
-    # banca = Jugador("Banca")
-    # participantes = seleccionar_participantes()
-    # jugador_1 = participantes[0]
-    # jugador_2 = participantes[1]
-    # banca = participantes[2]
-    
-    # print(f"{jugador_1.nombre}, puntuación: {jugador_1.mano.puntuacion}")
-    # print(f"{jugador_2.nombre}, puntuación: {jugador_2.mano.puntuacion}")
-    # print(f"{banca.nombre}, puntuación: {banca.mano.puntuacion}")
-    # print(f"Ganador: {iniciar_partida(jugador_1, jugador_2, banca)}")
-    
-    #iniciar_partida()
     comprobar_ganadores()

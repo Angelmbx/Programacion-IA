@@ -64,5 +64,26 @@ def iniciar_partida():
 def comprobar_ganadores():
     participantes_validos = iniciar_partida()
 
-    for jugador in participantes_validos:
-        print(f"{jugador.nombre} {jugador.mano.puntuacion}")
+    max_puntuacion = max([j.mano.puntuacion for j in participantes_validos ])
+    
+    ganadores = [j for j in participantes_validos if j.mano.puntuacion == max_puntuacion]
+    
+    print(f"Enhorabuena {ganadores[0].nombre}!!")
+    
+
+def comprobar_ganadores():
+    participantes_validos = iniciar_partida()
+
+    if not participantes_validos:
+        print("No hay ganadores, todos los jugadores han sido eliminados.")
+        return
+
+    #Obtener la puntuación máxima entre los jugadores válidos
+    max_puntuacion = max([j.mano.puntuacion for j in participantes_validos])
+
+    # Se añade a ganadores a aquellos jugadores que obtuviesen esa puntuación (por si hay empate a puntos)
+    ganadores = [j for j in participantes_validos if j.mano.puntuacion == max_puntuacion]
+
+    nombres_ganadores = ", ".join([j.nombre for j in ganadores])
+
+    print(f"Enhorabuena {nombres_ganadores} por la victoria con {max_puntuacion} puntos!")
