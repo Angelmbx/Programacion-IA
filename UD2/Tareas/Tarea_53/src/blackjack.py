@@ -34,13 +34,13 @@ def iniciar_partida():
     if validos:
         jugadores_eliminados = []  # Lista para registrar jugadores eliminados
         
-        for jugador in validos:
-            puntuacion = jugador.mano.puntacion
-            print(f"Turno de {jugador.nombre} - Puntuación inicial {puntuacion}: ")
+        for jugador, jugador.mano.puntuacion in validos:
+            # puntuacion = jugador.mano.puntacion
+            print(f"Turno de {jugador.nombre} - Puntuación inicial {jugador.mano.puntuacion}: ")
     
             jugando = True
             
-            if puntuacion == puntuacion_obj:
+            if jugador.mano.puntuacion == puntuacion_obj:
                 print(f"{jugador.nombre} ha alcanzado la puntuación límite con {jugador.mano.puntuacion} puntos!.")
                 jugando = False
 
@@ -84,16 +84,3 @@ def comprobar_ganadores():
         puntuacion = elemento[1]
         print(jugador.nombre, puntuacion)
         
-
-
-    # if validos:
-    #     # Ver que puntuación es la más alta de las válidas
-    #     max_puntuacion = max(participante[1] for participante in validos)
-        
-    #     # Encontrar qué jugadores tienen esa puntuación (para que si hay más de 1 ganador, se reflejen todos y no solo el primero que aparezca)
-    #     ganadores = [p[0] for p in validos if p[1] == max_puntuacion]
-        
-    #     return ", ".join(ganadores) 
-        
-    # else:
-    #     return "No hay ganador" 
