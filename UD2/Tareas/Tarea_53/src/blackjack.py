@@ -25,13 +25,13 @@ def iniciar_partida():
             pedir = input("¿Quieres pedir otra carta? (1 para sí / 0 para no): ").strip()
             if pedir.strip() == "1":
                 jugador.mano.añadir_carta()
-                print(f"Has recibido un {jugador.mano.nueva_carta.figura}, tu nueva es puntuación {jugador.mano.puntuacion}")
+                print(f"{jugador.nombre} ha recibido un {jugador.mano.nueva_carta.figura}, tu nueva es puntuación {jugador.mano.puntuacion}")
 
                 if jugador.mano.puntuacion == puntuacion_obj:
-                    print(f"{jugador.nombre} ha alcanzado la puntuación límite con {jugador.mano.puntuacion} puntos!")
+                    print(f"{jugador.nombre} ha alcanzado la puntuación máxima con {jugador.mano.puntuacion} puntos!")
                     break
                 elif jugador.mano.puntuacion > puntuacion_obj:
-                    print(f"{jugador.nombre} ha superado la puntuación límite con {jugador.mano.puntuacion}.")
+                    print(f"{jugador.nombre} ha superado la puntuación máxima con {jugador.mano.puntuacion} puntos.")
                     jugadores_eliminados.append(jugador)
                     break
             elif pedir.strip() == "0":
