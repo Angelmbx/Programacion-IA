@@ -15,49 +15,33 @@ def iniciar_partida():
     puntuacion_obj = 21
 
     participantes = seleccionar_participantes()
-    jugador1, jugador2, banca = participantes
 
-    estado_inicial = [jugador1, jugador2, banca]
+    jugadores_eliminados = []  # Lista para registrar jugadores eliminados
 
-    # Comprueba que la puntuación inicial sea menor o igual a 21
-    validos = [jugador for jugador in estado_inicial if jugador.mano.puntuacion <= puntuacion_obj]
-    no_validos = [jugador for jugador in estado_inicial if jugador.mano.puntuacion > puntuacion_obj]
+    for jugador in participantes:
+        print(f"Turno de {jugador.nombre} - Puntuación inicial {jugador.mano.puntuacion}: ")
 
-    if validos:
-        jugadores_eliminados = []  # Lista para registrar jugadores eliminados
+        while True:
+            pedir = input("¿Quieres pedir otra carta? (1 para sí / 0 para no): ").strip()
+            if pedir.strip() == "1":
+                jugador.mano.añadir_carta()
+                print(f"Has recibido un {jugador.mano.nueva_carta.figura}, tu nueva es puntuación {jugador.mano.puntuacion}")
 
-        for jugador in validos:
-            print(f"Turno de {jugador.nombre} - Puntuación inicial {jugador.mano.puntuacion}: ")
-
-            jugando = True
-
-            if jugador.mano.puntuacion == puntuacion_obj:
-                print(f"{jugador.nombre} ha alcanzado la puntuación límite con {jugador.mano.puntuacion} puntos!")
-                jugando = False
-
-            while jugando:
-                pedir = input("¿Quieres pedir otra carta? (1 para sí / 0 para no): ").lower().strip()
-                if pedir == "1":
-                    jugador.mano.añadir_carta()
-                    print(f"Nueva puntuación {jugador.mano.puntuacion}")
-
-                    if jugador.mano.puntuacion == puntuacion_obj:
-                        print(f"{jugador.nombre} ha alcanzado la puntuación límite con {jugador.mano.puntuacion} puntos!")
-                        break
-                    elif jugador.mano.puntuacion > puntuacion_obj:
-                        print(f"{jugador.nombre} ha superado la puntuación límite con {jugador.mano.puntuacion}.")
-                        jugadores_eliminados.append(jugador)
-                        break
-                else:
-                    jugando = False
-
-        # Actualiza la lista de válidos eliminando los jugadores que superaron 21 puntos
-        validos = [jugador for jugador in validos if jugador not in jugadores_eliminados]
-
-    else:
-        for jugador in no_validos:
-            print(f"{jugador.nombre} superó la puntuación límite: {jugador.mano.puntuacion}: ")
-
+                if jugador.mano.puntuacion == puntuacion_obj:
+                    print(f"{jugador.nombre} ha alcanzado la puntuación límite con {jugador.mano.puntuacion} puntos!")
+                    break
+                elif jugador.mano.puntuacion > puntuacion_obj:
+                    print(f"{jugador.nombre} ha superado la puntuación límite con {jugador.mano.puntuacion}.")
+                    jugadores_eliminados.append(jugador)
+                    break
+            elif pedir.strip() == "0":
+                break
+            else:
+                print("Respuesta incorrecta. Debes elegir entre (1) Pedir carta y (0) Plantarse")
+       
+   
+    validos = [jugador for jugador in participantes if jugador not in jugadores_eliminados]   
+       
     return validos
 
 
