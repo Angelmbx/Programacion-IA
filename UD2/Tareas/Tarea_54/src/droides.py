@@ -9,4 +9,4 @@ class Droides:
         self.films = films
 
     def __str__ (self):
-        return f"· Nombre: {self.name}, planeta natal: {self.homeworld}, películas: {self.films}"
+        return f"· Nombre: {self.name}, Planeta natal: {self.homeworld}, Películas: {self.films}"
