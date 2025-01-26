@@ -22,7 +22,7 @@ def iniciar_partida():
         print(f"Turno de {jugador.nombre} - Puntuación inicial {jugador.mano.puntuacion}: ")
 
         while True:
-            pedir = input("¿Quieres pedir otra carta? (1 para sí / 0 para no): ").strip()
+            pedir = input("¿Quieres pedir otra carta? ").strip()
             if pedir.strip() == "1":
                 jugador.mano.añadir_carta()
                 print(f"{jugador.nombre} ha recibido un {jugador.mano.nueva_carta.figura}, tu nueva es puntuación {jugador.mano.puntuacion}")
@@ -71,3 +71,14 @@ def comprobar_ganadores():
     nombres_ganadores = ", ".join([j.nombre for j in ganadores])
 
     print(f"Enhorabuena {nombres_ganadores} por la victoria con {max_puntuacion} puntos!")
+
+    while True:
+        otra_partida = input("Otra partida? (1 para sí / 0 para no): ").strip()
+        if otra_partida == "1":
+            comprobar_ganadores()
+            break
+        elif otra_partida == "0":
+            print("Entendido, hasta otra!!")
+            break
+        else:
+            print("Respuesta incorrecta. Debes elegir entre (1) Jugar otra partida y (0) Salir")
