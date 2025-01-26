@@ -3,7 +3,7 @@ from src.algoritmo_luhn import algoritmo_luhn
 from src.errores import error_algoritmo_luhn
 
 @dataclass(frozen=True)
-class Usuario():
+class Usuario_inmutable():
     nombre : str
     apellidos : str
     username : str
