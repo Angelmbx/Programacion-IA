@@ -11,7 +11,7 @@ class Usuario_inmutable():
     tarjeta : str = None
     nombre_completo: str = field(init=False, repr=False)
     def __post_init__(self):
-        # al ser la clase inmutable, es necesario el object.__setattr__() para modificar uno de lo atributos 
+        # al ser la clase inmutable, es necesario el object.__setattr__() para dar valor a uno de lo atributos 
         object.__setattr__(self, "Nombre_completo: ", f"{self.nombre} {self.apellidos}")
         # cuando se introduce un numero de tarjeta, es cuando se valida.
         if self.tarjeta is not None and not algoritmo_luhn(self.tarjeta):
