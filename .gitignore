@@ -20,3 +20,5 @@ ENV/
 
 # Ignorar archivos de sistema
 Thumbs.db
+
+.ipynb_checkpoints/
