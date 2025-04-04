@@ -15,5 +15,5 @@ if __name__ == '__main__':
             
     if numero_primo:
         print("O número introducido é primo")
-    else:
+    # else:
         print("O número introducido NON é primo")
