@@ -1,0 +1,13 @@
+name: iris-dataset
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pytorch  
+  - pytest
+  - pandas
+  - jupyter
+  - matplotlib
+  - scikit-learn
