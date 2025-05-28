@@ -30,9 +30,9 @@ class StandardScaler:
     
 class AirfoilDataset(Dataset):
     def __init__(self, src_file, transform=None):
-        bostonDataset = pd.read_csv(src_file, delim_whitespace=True,names=['Frequency','Angle of attack','Chord length', 'Free-stream velocity', 'Suction side displacement thickness', 'Pressure level'])
-        X = bostonDataset.loc[:, ~bostonDataset.columns.isin(['Pressure level'])]
-        Y = bostonDataset[["Pressure level"]]
+        airfolDataset = pd.read_csv(src_file, delim_whitespace=True,names=['Frequency','Angle of attack','Chord length', 'Free-stream velocity', 'Suction side displacement thickness', 'Pressure level'])
+        X = airfolDataset.loc[:, ~airfolDataset.columns.isin(['Pressure level'])]
+        Y = airfolDataset[["Pressure level"]]
     
         X = X.apply(pd.to_numeric, errors="coerce")
         
