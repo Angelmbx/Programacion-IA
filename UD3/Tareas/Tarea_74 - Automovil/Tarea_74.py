@@ -29,17 +29,35 @@ class StandardScaler:
     
 class AutomovilDataset(Dataset):
     def __init__(self, src_file, transform=None):
-        bostonDataset = pd.read_csv(src_file, delim_whitespace=True,names=['Frequency','Angle of attack','Chord length', 'Free-stream velocity', 'Suction side displacement thickness', 'Pressure level'])
-        X = bostonDataset.loc[:, ~bostonDataset.columns.isin(['Pressure level'])]
-        Y = bostonDataset[["Pressure level"]]
-    
-        X = X.apply(pd.to_numeric, errors="coerce")
+        df = pd.read_csv(src_file, header=None, sep=",")
+ 
+        # Reemplazar '?' por NaN y convertir todas a tipo apropiado
+        df.replace("?", pd.NA, inplace=True)
+        df = df.apply(pd.to_numeric, errors='ignore')  # deja las categóricas como strings
         
-        y_tensor = torch.tensor(Y.values.astype("float32"), dtype=torch.float32)
-        
-        s1 = X.values.astype("float32")
-        x_tensor = torch.tensor(s1, dtype=torch.float32)
+        # Eliminar filas donde falta el target
+        df = df[df['price'].notna()]
+        df['price'] = pd.to_numeric(df['price'])  # asegurar tipo numérico en target
 
+        # Rellenar valores numéricos faltantes con media
+        numeric_cols = df.select_dtypes(include=['number']).columns
+        df[numeric_cols] = df[numeric_cols].apply(lambda x: x.fillna(x.mean()))
+        
+        # Rellenar categóricos faltantes con moda
+        categorical_cols = df.select_dtypes(include='object').columns
+        df[categorical_cols] = df[categorical_cols].apply(lambda x: x.fillna(x.mode()[0]))
+        
+        # Convertir categóricas a variables dummy (One-Hot Encoding)
+        df = pd.get_dummies(df, columns=categorical_cols)
+        
+        X = df.iloc[:, :-1]  
+        Y = df.iloc[:, -1:]  # Target = ultima columna
+        
+        # Convertir a tensores
+        x_tensor = torch.tensor(X.values.astype("float32"), dtype=torch.float32)
+        y_tensor = torch.tensor(Y.values.astype("float32"), dtype=torch.float32)
+
+        # Escalado
         scaler = StandardScaler()
         X_scaled = scaler.fit_transform(x_tensor).type(torch.float32)
 
