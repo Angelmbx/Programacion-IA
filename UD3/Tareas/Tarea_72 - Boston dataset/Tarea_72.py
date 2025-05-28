@@ -143,18 +143,17 @@ def evaluate(val_loader):
 
 
 EPOCHS = 200
-writer = None
-tb = SummaryWriter()
+writer = SummaryWriter(log_dir="./runs/boston")
 
 # Entrenamiento
 for epoch in range(EPOCHS):
     model.train(True)
-    avg_loss = train_one_epoch(epoch, tb)
+    avg_loss = train_one_epoch(epoch, writer)
     val_loss = evaluate(validation_loader)
 
     print(f"Epoch {epoch+1}/{EPOCHS} - Train loss: {avg_loss:.4f} - Val loss: {val_loss:.4f}")
 
-    tb.add_scalar('Loss/train', avg_loss, epoch)
-    tb.add_scalar('Loss/validation', val_loss, epoch)
+    writer.add_scalar('Loss/train', avg_loss, epoch)
+    writer.add_scalar('Loss/validation', val_loss, epoch)
     
-tb.close()
+writer.close()
