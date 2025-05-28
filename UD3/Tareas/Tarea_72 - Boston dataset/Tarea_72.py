@@ -4,6 +4,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader, random_split
 import matplotlib.pyplot as plt
+from torch.utils.tensorboard import SummaryWriter
+
 
 class StandardScaler:
     def __init__(self, mean=None, std=None, epsilon=1e-7):
@@ -89,3 +91,70 @@ model     = Model(13)
 optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 loss_fn   = nn.MSELoss(reduction='sum')
 print(model)
+
+# Simulacion de una iteración
+
+entradaProba,dest = next(iter(train_loader))
+print("Entrada:")
+print(entradaProba)
+print("Desexada:")
+print(dest)
+saida = model(entradaProba) 
+print("Saída:")
+print(saida)
+loss_fn(saida, dest)
+
+# Resultados muy lejanos del deseado dado que está sin entrenar, pero al menos funciona
+
+def train_one_epoch(epoch_index, tb_writer):
+    running_loss = 0.
+    for i, data in enumerate(train_loader):
+        # Every data instance is an input + label pair
+        inputs, labels = data
+
+        # Zero your gradients for every batch!
+        optimizer.zero_grad()
+
+        # Make predictions for this batch
+        outputs = model(inputs)
+
+        # Compute the loss and its gradients
+        loss = loss_fn(outputs, labels)
+        loss.backward()
+
+        # Adjust learning weights
+        optimizer.step()
+
+        # Gather data and report
+        running_loss += loss.item()
+
+    return running_loss / len(train_loader)
+
+# Funcion para evaluar entrenamiento
+def evaluate(val_loader):
+    model.eval()
+    total_loss = 0
+    with torch.no_grad():
+        for inputs, labels in val_loader:
+            outputs = model(inputs)
+            loss = loss_fn(outputs, labels)
+            total_loss += loss.item()
+    return total_loss / len(val_loader)
+
+
+EPOCHS = 200
+writer = None
+tb = SummaryWriter()
+
+# Entrenamiento
+for epoch in range(EPOCHS):
+    model.train(True)
+    avg_loss = train_one_epoch(epoch, tb)
+    val_loss = evaluate(validation_loader)
+
+    print(f"Epoch {epoch+1}/{EPOCHS} - Train loss: {avg_loss:.4f} - Val loss: {val_loss:.4f}")
+
+    tb.add_scalar('Loss/train', avg_loss, epoch)
+    tb.add_scalar('Loss/validation', val_loss, epoch)
+    
+tb.close()
