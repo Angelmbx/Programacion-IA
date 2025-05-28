@@ -61,7 +61,6 @@ class BostonDataset(Dataset):
 dataset = BostonDataset("housing.data")
 
 # División Train - Test del dataset 
-from torch.utils.data import random_split
 
 lonxitudeDataset = len(dataset)
 tamTrain =int(lonxitudeDataset*0.8)
@@ -71,4 +70,22 @@ train_set, val_set = random_split(dataset,[tamTrain,tamVal])
 train_loader = torch.utils.data.DataLoader(train_set, batch_size=2,shuffle=True, drop_last=False)
 validation_loader =torch.utils.data.DataLoader(val_set, batch_size=4, shuffle=False)    
 
+# Creación modelo
 
+class Model(nn.Module):
+    def __init__(self, entradas):
+        super(Model, self).__init__()
+        self.layer1 = nn.Linear(entradas, 100)
+        self.layer2 = nn.Linear(100, 50)
+        self.layer3 = nn.Linear(in_features=50, out_features=1)
+        
+    def forward(self, x):
+        x = F.relu(self.layer1(x))
+        x = F.relu(self.layer2(x))
+        x = F.relu(self.layer3(x))
+        return x
+
+model     = Model(13)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
+loss_fn   = nn.MSELoss(reduction='sum')
+print(model)
