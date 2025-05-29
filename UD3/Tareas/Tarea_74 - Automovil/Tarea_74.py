@@ -29,29 +29,37 @@ class StandardScaler:
     
 class AutomovilDataset(Dataset):
     def __init__(self, src_file, transform=None):
-        df = pd.read_csv(src_file, header=None, sep=",")
- 
-        # Reemplazar '?' por NaN y convertir todas a tipo apropiado
+        df = pd.read_csv(src_file, 
+                        header=None, sep=",",
+                        names = [
+                                "symboling", "normalized-losses", "make", "fuel-type", "aspiration", "num-of-doors", "body-style", 
+                                "drive-wheels", "engine-location", "wheel-base", "length", "width", "height", "curb-weight", 
+                                "engine-type", "num-of-cylinders", "engine-size", "fuel-system", "bore", "stroke", "compression-ratio", 
+                                "horsepower", "peak-rpm", "city-mpg", "highway-mpg", "price"
+                            ])
+
+
+        # Cambia '?' por NaN 
         df.replace("?", pd.NA, inplace=True)
         df = df.apply(pd.to_numeric, errors='ignore')  # deja las categóricas como strings
         
-        # Eliminar filas donde falta el target
+        # Elimina filas donde falta el target
         df = df[df['price'].notna()]
-        df['price'] = pd.to_numeric(df['price'])  # asegurar tipo numérico en target
+        df['price'] = pd.to_numeric(df['price'])  
 
-        # Rellenar valores numéricos faltantes con media
+        # Sustituye nulos por la media en los datos numéricos
         numeric_cols = df.select_dtypes(include=['number']).columns
         df[numeric_cols] = df[numeric_cols].apply(lambda x: x.fillna(x.mean()))
         
-        # Rellenar categóricos faltantes con moda
+        # En los categóricos por la moda
         categorical_cols = df.select_dtypes(include='object').columns
         df[categorical_cols] = df[categorical_cols].apply(lambda x: x.fillna(x.mode()[0]))
-        
-        # Convertir categóricas a variables dummy (One-Hot Encoding)
+    
+        # One-Hot Encoding
         df = pd.get_dummies(df, columns=categorical_cols)
-        
-        X = df.iloc[:, :-1]  
-        Y = df.iloc[:, -1:]  # Target = ultima columna
+
+        X = df.loc[:, ~df.columns.isin(['price'])]
+        Y = df[["price"]]
         
         # Convertir a tensores
         x_tensor = torch.tensor(X.values.astype("float32"), dtype=torch.float32)
@@ -78,3 +86,12 @@ class AutomovilDataset(Dataset):
         return sample
 
 dataset = AutomovilDataset("imports-85.data")
+
+
+lonxitudeDataset = len(dataset)
+tamTrain =int(lonxitudeDataset*0.8)
+tamVal = lonxitudeDataset - tamTrain
+print(f"Tamaño dataset: {lonxitudeDataset} conjunto de entrenamiento: {tamTrain} conjunto de validación: {tamVal}")
+train_set, val_set = random_split(dataset,[tamTrain,tamVal])
+train_loader = torch.utils.data.DataLoader(train_set, batch_size=2,shuffle=True, drop_last=False)
+validation_loader =torch.utils.data.DataLoader(val_set, batch_size=4, shuffle=False) 
