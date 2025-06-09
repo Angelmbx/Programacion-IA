@@ -3,6 +3,7 @@ import paho.mqtt.client as mqtt
 
 broker_adress = "192.168.56.103"
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+client.username_pw_set(username="dispositivo", password="abc123.")
 client.connect(broker_adress, 1883) 
 
 
@@ -17,6 +18,5 @@ client.on_publish = on_publish
 
 client.on_disconnect = on_disconnect
 
-client.connect(broker_adress, 1883)
 client.publish("oficina/luz1", "on") 
 client.disconnect()

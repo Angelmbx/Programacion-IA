@@ -17,6 +17,7 @@ def recibirMensaje(client, userdata, message):
 
 
 client.on_message = recibirMensaje
+client.username_pw_set(username="dispositivo", password="abc123.")
 client.connect(broker_adress, 1883) 
 client.subscribe("oficina/luz1")
 client.loop_start()
